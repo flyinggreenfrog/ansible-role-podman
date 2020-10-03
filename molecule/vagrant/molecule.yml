@@ -1,0 +1,32 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+platforms:
+  # https://app.vagrantup.com/boxes/search
+  - name: podman-leap-15.2
+    box: opensuse/Leap-15.2.x86_64
+    box_version: 15.2.31.186
+  - name: podman-debian-10
+    box: debian/buster64
+    box_version: 10.4.0
+  - name: podman-debian-11
+    box: debian/testing64
+    box_version: 20200607.1
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+      stdout_callback: yaml
+  inventory:
+    host_vars:
+      podman-debian-11:
+        # Otherwise ansible fails with
+        # "Package 'python-apt' has no installation candidate"
+        ansible_python_interpreter: /usr/bin/python3
+verifier:
+  name: ansible

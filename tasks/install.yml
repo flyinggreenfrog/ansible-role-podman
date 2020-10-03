@@ -1,0 +1,19 @@
+---
+- name: "install variables - ensure validated"
+  assert:
+    that:
+      - "{{ item.assert }}"
+    quiet: True
+  loop:
+    - assert: "{{ podman__packages_state in ['present', 'absent'] }}"
+      msg: "podman__packages_state in ['present', 'absent'] ->
+        '{{ podman__packages_state }}'"
+    - assert: "{{ podman__packages | type_debug ==  'list' }}"
+      msg: "podman__packages is list -> '{{ podman__packages }}'"
+  loop_control:
+    label: "{{ item.msg }}"
+
+- name: "packages - ensure installed/removed"
+  package:
+    state: "{{ podman__packages_state }}"
+    name: "{{ podman__packages }}"

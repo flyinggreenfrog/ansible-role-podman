@@ -1,0 +1,26 @@
+---
+# Copyright (C) 2020 Peter Hoffmann <hoffmann@b1-systems.de>
+# SPDX-License-Identifier: GPL-3.0-only
+
+dependencies: []
+
+galaxy_info:
+  author: Peter Hoffmann
+  description: Install podman
+  company: B1 Systems GmbH
+  license: GPL-3.0-only
+
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: opensuse
+      versions:
+        - 15.2
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
+
+  galaxy_tags:
+    - container
+    - podman

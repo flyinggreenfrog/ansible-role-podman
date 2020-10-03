@@ -1,0 +1,22 @@
+---
+extends: default
+
+rules:
+  braces:
+    max-spaces-inside: 1
+    level: error
+  brackets:
+    max-spaces-inside: 1
+    level: error
+  comments:
+    require-starting-space: False
+  comments-indentation: disable
+  indentation:
+    spaces: 2
+  line-length:
+    level: warning
+    max: 80
+    allow-non-breakable-words: True
+    allow-non-breakable-inline-mappings: True
+  truthy:
+    allowed-values: ['True', 'False']

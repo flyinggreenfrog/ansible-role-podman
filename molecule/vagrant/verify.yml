@@ -1,0 +1,28 @@
+---
+- name: Verify
+  hosts: all
+  become: True
+  tasks:
+    - name: "default role variables - ensure included"
+      include_vars: "../../defaults/main.yml"
+
+    - name: "OS specific role variables - ensure included"
+      include_vars: "../../vars/{{ ansible_os_family }}.yml"
+
+    - name: "packages - ensure checked"
+      package:
+        state: "{{ podman__packages_state }}"
+        name: "{{ podman__packages }}"
+      check_mode: True
+      register: podman__packages_r
+
+    - name: "get version"
+      command: "podman --version"
+      register: podman__version_r
+      changed_when: False
+      when: not podman__packages_r is changed
+
+    - name: "output version"
+      debug:
+        msg: "{{ podman__version_r.stdout }}"
+      when: not podman__packages_r is changed

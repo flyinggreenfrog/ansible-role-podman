@@ -1,0 +1,13 @@
+---
+- name: "zypper_repository - ensure configured"
+  zypper_repository:
+    name: "Virtualization_containers"
+    description: "Virtualization:containers\
+      ({{ ansible_distribution | replace(' ', '_') }}_\
+      {{ ansible_distribution_version }}"
+    state: "{{ podman__repository_state }}"
+    enabled: "{{ podman__repository_enabled }}"
+    repo: "http://download.opensuse.org/repositories/Virtualization:/\
+      containers/{{ ansible_distribution | replace(' ', '_') }}_\
+      {{ ansible_distribution_version }}"
+    auto_import_keys: True

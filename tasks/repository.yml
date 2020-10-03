@@ -1,0 +1,19 @@
+---
+- name: "repository variables - ensure validated"
+  assert:
+    that:
+      - "{{ item.assert }}"
+    quiet: True
+  loop:
+    - assert: "{{ podman__repository_state in ['present', 'absent'] }}"
+      msg: "podman__repository_state in ['present', 'absent'] ->
+        '{{ podman__repository_state }}'"
+    - assert: "{{ podman__repository_enabled is boolean }}"
+      msg: "podman__repository_enabled is boolean ->
+        '{{ podman__repository_enabled }}'"
+  loop_control:
+    label: "{{ item.msg }}"
+
+- name: "distribution specific repository file - ensure included"
+  include_tasks: "repository_{{ ansible_distribution
+    | replace(' ', '-') | lower }}.yml"
