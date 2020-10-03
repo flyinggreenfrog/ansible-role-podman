@@ -5,6 +5,8 @@
 dependencies: []
 
 galaxy_info:
+  role_name: podman
+
   author: Peter Hoffmann
   description: Install podman
   company: B1 Systems GmbH
