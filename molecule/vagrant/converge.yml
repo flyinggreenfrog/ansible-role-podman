@@ -3,4 +3,4 @@
   hosts: all
   become: True
   roles:
-    - podman
+    - flyinggreenfrog.podman
