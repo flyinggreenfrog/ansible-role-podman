@@ -35,6 +35,6 @@
       | capitalize }}/Release.key"
     state: "{{ podman__repository_state }}"
 
-- name: cache
+- name: "apt cache - ensure updated"
   apt:
     update_cache: True
