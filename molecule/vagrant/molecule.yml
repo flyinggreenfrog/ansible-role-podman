@@ -24,9 +24,11 @@ provisioner:
       stdout_callback: yaml
   inventory:
     host_vars:
+      # Otherwise ansible fails with
+      # "Package 'python-apt' has no installation candidate"
+      podman-debian-10:
+        ansible_python_interpreter: /usr/bin/python3
       podman-debian-11:
-        # Otherwise ansible fails with
-        # "Package 'python-apt' has no installation candidate"
         ansible_python_interpreter: /usr/bin/python3
 verifier:
   name: ansible
