@@ -1,7 +1,7 @@
-Role Name
+flyinggreenfrog.podman
 =========
 
-Install podman.
+Installs podman.
 
 License
 -------
