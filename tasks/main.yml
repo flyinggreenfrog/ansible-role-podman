@@ -2,13 +2,13 @@
 - name: "main variables - ensure validated"
   assert:
     that:
-      - "{{ item.assert }}"
+      - "{{ item.test }}"
     quiet: True
   loop:
-    - assert: "{{ podman__repository_manage is boolean }}"
+    - test: "{{ podman__repository_manage is boolean }}"
       msg: "podman__repository_manage is boolean ->
         '{{ podman__repository_manage }}'"
-    - assert: "{{ podman__packages_manage is boolean }}"
+    - test: "{{ podman__packages_manage is boolean }}"
       msg: "podman__packages_manage is boolean ->
         '{{ podman__packages_manage }}'"
   loop_control:
