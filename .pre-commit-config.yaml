@@ -1,0 +1,29 @@
+---
+default_language_version:
+  python: python3
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+      - id: check-added-large-files
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.24.2
+    hooks:
+      - id: yamllint
+        name: YAML Lint
+        entry: yamllint --strict
+        language: python
+        types: [file, yaml]
+  - repo: https://github.com/ansible/ansible-lint.git
+    # In v4.2.0 auto-detection is working, but no longer with v4.3.X
+    # https://github.com/ansible/ansible-lint/issues/1049
+    rev: v4.2.0
+    hooks:
+      - id: ansible-lint
+        name: Ansible Lint
+        entry: ansible-lint
+        language: python
+        # do not pass files to ansible-lint, see:
+        # https://github.com/ansible/ansible-lint/issues/611
+        pass_filenames: False
+        always_run: True
