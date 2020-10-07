@@ -2,16 +2,17 @@
 - name: "install variables - ensure validated"
   assert:
     that:
-      - "{{ item.test }}"
-    quiet: True
+      - "{{ item.result }}"
+    quiet: "{{ podman__quiet }}"
   loop:
-    - test: "{{ podman__packages_state in ['present', 'absent'] }}"
-      msg: "podman__packages_state in ['present', 'absent'] ->
-        '{{ podman__packages_state }}'"
-    - test: "{{ podman__packages | type_debug == 'list' }}"
-      msg: "podman__packages is list -> '{{ podman__packages }}'"
+    - result: "{{ podman__packages_state in ['present', 'absent'] }}"
+      description: "podman__packages_state in ['present', 'absent']"
+      value: "{{ podman__packages_state }}"
+    - result: "{{ podman__packages | type_debug == 'list' }}"
+      description: "podman__packages is list"
+      value: "{{ podman__packages | type_debug }}"
   loop_control:
-    label: "{{ item.msg }}"
+    label: "{{ item.description }}"
 
 - name: "packages - ensure state"
   package:

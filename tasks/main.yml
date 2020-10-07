@@ -2,17 +2,18 @@
 - name: "main variables - ensure validated"
   assert:
     that:
-      - "{{ item.test }}"
-    quiet: True
+      - "{{ item.result }}"
+    quiet: "{{ podman__quiet }}"
   loop:
-    - test: "{{ podman__repository_manage is boolean }}"
-      msg: "podman__repository_manage is boolean ->
-        '{{ podman__repository_manage }}'"
-    - test: "{{ podman__packages_manage is boolean }}"
-      msg: "podman__packages_manage is boolean ->
-        '{{ podman__packages_manage }}'"
+    - result: "{{ podman__repository_manage is boolean }}"
+      description: "podman__repository_manage is boolean"
+      value: "{{ podman__repository_manage }}"
+    - result: "{{ podman__packages_manage is boolean }}"
+      description: "podman__packages_manage is boolean"
+      value: "{{ podman__packages_manage }}"
   loop_control:
-    label: "{{ item.msg }}"
+    label: "{{ item.description }}"
+  tags: podman
 
 - name: "OS family specific variables - ensure included"
   include_vars: "{{ ansible_os_family }}.yml"

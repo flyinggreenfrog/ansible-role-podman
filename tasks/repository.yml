@@ -2,15 +2,15 @@
 - name: "repository variables - ensure validated"
   assert:
     that:
-      - "{{ item.test }}"
-    quiet: True
+      - "{{ item.result }}"
+    quiet: "{{ podman__quiet }}"
   loop:
-    - test: "{{ podman__repository_state in ['present', 'absent'] }}"
-      msg: "podman__repository_state in ['present', 'absent'] ->
-        '{{ podman__repository_state }}'"
-    - test: "{{ podman__repository_enabled is boolean }}"
-      msg: "podman__repository_enabled is boolean ->
-        '{{ podman__repository_enabled }}'"
+    - result: "{{ podman__repository_state in ['present', 'absent'] }}"
+      msg: "podman__repository_state in ['present', 'absent']"
+      value: "{{ podman__repository_state }}"
+    - result: "{{ podman__repository_enabled is boolean }}"
+      msg: "podman__repository_enabled is boolean"
+      value: "{{ podman__repository_enabled }}"
   loop_control:
     label: "{{ item.msg }}"
 

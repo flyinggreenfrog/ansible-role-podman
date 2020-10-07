@@ -2,14 +2,14 @@
 - name: "debian version - ensure checked"
   assert:
     that:
-      - "{{ item.assert }}"
-    quiet: True
+      - "{{ item.result }}"
+    quiet: "{{ podman__quiet }}"
   loop:
-    - assert: "{{ ansible_distribution_version in ['10', 'testing'] }}"
-      msg: "ansible_distribution_version in ['10', 'testing'] ->
-        '{{ ansible_distribution_version }}'"
+    - result: "{{ ansible_distribution_version in ['10', 'testing'] }}"
+      description: "ansible_distribution_version in ['10', 'testing']"
+      value: "{{ ansible_distribution_version }}"
   loop_control:
-    label: "{{ item.msg }}"
+    label: "{{ item.description }}"
 
 - name: "apt_repository - ensure configured"
   apt_repository:

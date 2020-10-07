@@ -1,4 +1,5 @@
 ---
+podman__quiet: True
 podman__repository_manage: True
 podman__repository_state: present
 podman__repository_enabled: True
