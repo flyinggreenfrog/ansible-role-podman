@@ -1,0 +1,4 @@
+---
+- name: 'distribution specific repository file - ensure included'
+  include_tasks: "repositories_{{ ansible_distribution
+    | replace(' ', '-') | lower }}.yml"
