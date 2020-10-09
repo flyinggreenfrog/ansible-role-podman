@@ -12,14 +12,6 @@
     - a: 'ansible_distribution_version'
       b: "in ['10', 'testing']"
 
-- name: 'apt_repository - ensure configured'
-  apt_repository:
-    repo: "deb https://download.opensuse.org/repositories/devel:/kubic:/\
-      libcontainers:/stable/Debian_{{ ansible_distribution_version
-      | capitalize }}/ /"
-    state: '{{ podman__repositories_state }}'
-    update_cache: False
-
 # To prevent following error for apt_key:
 #   Failed to find required executable gpg in paths:
 #   /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -36,6 +28,9 @@
       | capitalize }}/Release.key"
     state: '{{ podman__repositories_state }}'
 
-- name: 'apt cache - ensure updated'
-  apt:
-    update_cache: True
+- name: 'apt_repository - ensure configured'
+  apt_repository:
+    repo: "deb https://download.opensuse.org/repositories/devel:/kubic:/\
+      libcontainers:/stable/Debian_{{ ansible_distribution_version
+      | capitalize }}/ /"
+    state: '{{ podman__repositories_state }}'
