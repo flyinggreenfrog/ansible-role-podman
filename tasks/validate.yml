@@ -1,0 +1,28 @@
+---
+- block:
+    - name: 'variables - ensure validated'
+      assert:
+        that:
+          - 'podman__repositories_manage is boolean'
+          - "podman__repositories_state in ['present', 'absent']"
+          - 'podman__repositories_enabled is boolean'
+          - 'podman__packages_manage is boolean'
+          - "podman__packages_state in ['present', 'absent']"
+          - "podman__packages is not string \
+             and podman__packages is not mapping \
+             and podman__packages is sequence"
+        quiet: true
+  rescue:
+    - name: 'variables values - ensure output'
+      debug:
+        msg: "{{ lookup('vars', item) }}"
+      loop:
+        - 'podman__repositories_manage'
+        - 'podman__repositories_state'
+        - 'podman__repositories_enabled'
+        - 'podman__packages_manage'
+        - 'podman__packages_state'
+        - 'podman__packages'
+    - name: 'validation errors -> fail'
+      fail:
+        msg: 'check variables in last 2 tasks'

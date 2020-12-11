@@ -1,16 +1,19 @@
 ---
-- name: 'debian version - ensure checked'
-  assert:
-    that:
-      - "lookup('vars', item.a, defaults='NOT DEFINED') {{ item.b }}"
-    fail_msg: "{{ item .a }}
-      == '{{ lookup('vars', item.a, defaults='NOT DEFINED') }}'"
-    quiet: true
-  loop_control:
-    label: '{{ item.a }}'
-  loop:
-    - a: 'ansible_distribution_version'
-      b: "in ['10', 'testing']"
+- block:
+    - name: 'debian version - ensure checked'
+      assert:
+        that:
+          - "ansible_distribution_version in ['10', 'testing']"
+        quiet: true
+  rescue:
+    - name: 'debian version value - ensure output'
+      debug:
+        msg: "{{ lookup('vars', item) }}"
+      loop:
+        - 'ansible_distribution_version'
+    - name: 'debian version unsupported -> fail'
+      fail:
+        msg: 'check last 2 tasks'
 
 # To prevent following error for apt_key:
 #   Failed to find required executable gpg in paths:

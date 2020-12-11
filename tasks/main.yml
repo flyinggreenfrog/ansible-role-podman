@@ -1,18 +1,15 @@
 ---
 - name: 'OS family specific variables - ensure included'
-  tags: 'podman'
   include_vars: '{{ ansible_os_family }}.yml'
-
-- name: 'assert tasks - ensure imported'
   tags: 'podman'
-  import_tasks: 'assert.yml'
 
-- name: 'repositories tasks - ensure imported'
+- import_tasks: 'validate.yml'
+  tags: 'podman'
+
+- import_tasks: 'repositories.yml'
   tags: ['podman', 'online']
-  import_tasks: 'repositories.yml'
   when: podman__repositories_manage
 
-- name: 'packages tasks - ensure imported'
+- import_tasks: 'packages.yml'
   tags: ['podman', 'online']
-  import_tasks: 'packages.yml'
   when: podman__packages_manage

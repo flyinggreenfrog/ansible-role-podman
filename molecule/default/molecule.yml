@@ -1,30 +1,34 @@
 ---
 dependency:
-  name: galaxy
+  name: 'galaxy'
+  options:
+    role-file: 'requirements.yml'
 driver:
-  name: vagrant
+  name: 'vagrant'
   provider:
-    name: libvirt
-lint: |
-  set -e
-  yamllint .
-  ansible-lint
+    name: 'libvirt'
+lint: 'pre-commit run -a'
 platforms:
   # https://app.vagrantup.com/boxes/search
-  - name: ansible-role-podman-leap-15.2
-    box: opensuse/Leap-15.2.x86_64
-    box_version: 15.2.31.186
-  - name: ansible-role-podman-debian-10
-    box: debian/buster64
-    box_version: 10.4.0
-  - name: ansible-role-podman-debian-11
-    box: debian/testing64
-    box_version: 20200607.1
+  - name: '${USER}-podman-leap-15.2'
+    box: 'opensuse/Leap-15.2.x86_64'
+    box_version: '15.2.31.186'
+  - name: '${USER}-podman-buster'
+    box: 'debian/buster64'
+    box_version: '10.4.0'
+  - name: '${USER}-podman-bullseye'
+    box: 'debian/testing64'
+    box_version: '20200607.1'
+scenario:
+  destroy_sequence:
+    - 'cleanup'
+    - 'destroy'
 provisioner:
-  name: ansible
+  name: 'ansible'
   config_options:
     defaults:
-      interpreter_python: /usr/bin/python3
-      stdout_callback: yaml
+      interpreter_python: '/usr/bin/python3'
+      stdout_callback: 'yaml'
+      callback_whitelist: 'profile_tasks,timer'
 verifier:
-  name: ansible
+  name: 'ansible'

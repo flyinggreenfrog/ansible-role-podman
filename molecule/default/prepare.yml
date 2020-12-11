@@ -1,13 +1,13 @@
 ---
-- name: Prepare
-  hosts: all
+- name: 'Prepare'
+  hosts: 'all'
   become: true
   vars:
-    ansible_python_interpreter: /usr/bin/python
+    ansible_python_interpreter: '/usr/bin/python'
   tasks:
-    - name: "needed packages - ensure installed"
+    - name: 'needed packages - ensure installed'
       package:
-        state: present
+        state: 'present'
         name:
-          - python3
-      when: "ansible_os_family == 'Suse'"
+          - 'python3'
+      when: ansible_os_family == 'Suse'
