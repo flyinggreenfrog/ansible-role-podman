@@ -9,14 +9,12 @@ rules:
     max-spaces-inside: 1
     level: error
   comments:
-    require-starting-space: False
+    require-starting-space: false
   comments-indentation: disable
   indentation:
     spaces: 2
   line-length:
     level: warning
     max: 80
-    allow-non-breakable-words: True
-    allow-non-breakable-inline-mappings: True
-  truthy:
-    allowed-values: ['True', 'False']
+    allow-non-breakable-words: true
+    allow-non-breakable-inline-mappings: true

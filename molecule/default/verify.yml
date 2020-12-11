@@ -1,10 +1,10 @@
 ---
 - name: Verify
   hosts: all
-  become: True
+  become: true
   tasks:
     - name: "default role variables - ensure included"
-      include_vars: "../../defaults/main.yml"
+      include_vars: "../../defaults/main.yml"  # noqa 505
 
     - name: "OS specific role variables - ensure included"
       include_vars: "../../vars/{{ ansible_os_family }}.yml"
@@ -13,13 +13,13 @@
       package:
         state: "{{ podman__packages_state }}"
         name: "{{ podman__packages }}"
-      check_mode: True
+      check_mode: true
       register: podman__packages_r
 
     - name: "get version"
       command: "podman --version"
       register: podman__version_r
-      changed_when: False
+      changed_when: false
       when: not podman__packages_r is changed
 
     - name: "output version"

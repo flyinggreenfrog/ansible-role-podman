@@ -1,6 +1,6 @@
 ---
-podman__repositories_manage: True
+podman__repositories_manage: true
 podman__repositories_state: 'present'
-podman__repositories_enabled: True
-podman__packages_manage: True
+podman__repositories_enabled: true
+podman__packages_manage: true
 podman__packages_state: 'present'
